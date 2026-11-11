@@ -1,0 +1,12 @@
+# Local dev database. The app itself runs with `npm run dev`.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: cadre
+      POSTGRES_PASSWORD: cadre
+      POSTGRES_DB: cadre
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+volumes:
+  pgdata:

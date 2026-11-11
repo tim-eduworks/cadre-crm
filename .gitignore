@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.env
+.env.local
+test-results/
+playwright-report/
+*.tsbuildinfo
+next-env.d.ts
+# Real contact data never goes in git (see README)
+data/import/*.xlsx
+data/import/*.csv

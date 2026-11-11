@@ -1,0 +1,95 @@
+[
+  {
+    "number": 1,
+    "name": "Identify Problem",
+    "gate": [
+      { "key": "problem", "label": "Problem statement: Problem and Impact filled", "type": "fieldsFilled", "fields": ["problem", "impact"] },
+      { "key": "org", "label": "Customer organization set", "type": "fieldsFilled", "fields": ["organizationId"] },
+      { "key": "contact", "label": "At least one stakeholder contact linked", "type": "minCount", "collection": "stakeholders", "min": 1 }
+    ]
+  },
+  {
+    "number": 2,
+    "name": "Discover",
+    "gate": [
+      { "key": "pids", "label": "Problem, Impact and Desired State filled", "type": "fieldsFilled", "fields": ["problem", "impact", "desiredState"] },
+      { "key": "criteria", "label": "At least one success criterion", "type": "minCount", "collection": "successCriteria", "min": 1 },
+      { "key": "notes", "label": "Discovery notes doc linked", "type": "document", "docType": "DISCOVERY_NOTES" },
+      { "key": "meeting", "label": "At least one discovery meeting logged", "type": "activity", "activityType": "MEETING", "min": 1 }
+    ]
+  },
+  {
+    "number": 3,
+    "name": "Qualify",
+    "gate": [
+      { "key": "scorecard", "label": "All 8 scorecard criteria rated (none unknown)", "type": "scorecardComplete" },
+      { "key": "decision", "label": "Go/no-go decision recorded with rationale", "type": "fieldsFilled", "fields": ["goDecision", "goRationale"] },
+      { "key": "go", "label": "Decision is Go (for a no-go, set status to No-bid instead)", "type": "fieldMatches", "field": "goDecision", "in": ["GO"] }
+    ]
+  },
+  {
+    "number": 4,
+    "name": "Design Solution",
+    "gate": [
+      { "key": "design", "label": "Solution design block filled", "type": "fieldsFilled", "fields": ["designCapabilities", "designServices", "designData", "designIntegrations", "designConsulting", "designApproach"] },
+      { "key": "reqs", "label": "At least one requirement listed", "type": "minCount", "collection": "requirements", "min": 1 },
+      { "key": "tags", "label": "Every requirement tagged configuration / customization / core", "type": "requirementsTagged" }
+    ]
+  },
+  {
+    "number": 5,
+    "name": "Select Deployment",
+    "gate": [
+      { "key": "branch", "label": "Deployment branch A/B/C set", "type": "fieldsFilled", "fields": ["branch"] },
+      { "key": "branchC", "label": "Branch C: environment sub-type, impact level and ATO status set", "type": "fieldsFilled", "fields": ["envSubType", "impactLevel", "atoStatus"], "when": { "field": "branch", "equals": "C" } }
+    ]
+  },
+  {
+    "number": 6,
+    "name": "Demonstrate",
+    "gate": [
+      { "key": "demo", "label": "Problem-focused demo logged (tied to the problem statement)", "type": "activity", "activityType": "DEMO", "min": 1, "problemFocused": true }
+    ]
+  },
+  {
+    "number": 7,
+    "name": "Validate Value",
+    "gate": [
+      { "key": "validation", "label": "Validation type chosen and outcome recorded", "type": "fieldsFilled", "fields": ["validationType", "validationOutcome"] }
+    ]
+  },
+  {
+    "number": 8,
+    "name": "Scope",
+    "gate": [
+      { "key": "scope", "label": "Scope block complete", "type": "fieldsFilled", "fields": ["scopeSoftware", "scopeUsers", "scopeData", "scopeIntegrations", "scopeServices", "scopeInfrastructure", "scopeImplementation", "scopeSupport"] },
+      { "key": "licenses", "label": "License count set", "type": "fieldsFilled", "fields": ["licenseCount"], "when": { "field": "engagementType", "notEquals": "LE_SERVICES" } },
+      { "key": "quoted", "label": "TCV marked quoted", "type": "fieldMatches", "field": "tcvFlag", "in": ["QUOTED", "CONTRACTED"] }
+    ]
+  },
+  {
+    "number": 9,
+    "name": "Contract",
+    "gate": [
+      { "key": "award", "label": "Contract sub-status is Award (award / signature)", "type": "fieldMatches", "field": "contractSubStatus", "in": ["AWARD"] },
+      { "key": "contracted", "label": "TCV marked contracted", "type": "fieldMatches", "field": "tcvFlag", "in": ["CONTRACTED"] }
+    ],
+    "onExit": { "setStatus": "WON" }
+  },
+  {
+    "number": 10,
+    "name": "Implement",
+    "gate": [
+      { "key": "handoff", "label": "Handoff: delivery owner assigned and kickoff logged", "type": "fieldsFilled", "fields": ["deliveryOwnerId", "kickoffDate"] },
+      { "key": "license", "label": "License record created", "type": "minCount", "collection": "licenses", "min": 1, "when": { "field": "engagementType", "notEquals": "LE_SERVICES" } }
+    ]
+  },
+  {
+    "number": 11,
+    "name": "Demonstrate Outcomes",
+    "gate": [
+      { "key": "outcomes", "label": "Each success criterion marked met / partially / not met with evidence", "type": "criteriaEvaluated" }
+    ]
+  },
+  { "number": 12, "name": "Expand & Renew", "gate": [] }
+]

@@ -1,0 +1,13 @@
+{
+  "tiers": [
+    { "name": "Committed", "minStage": 9, "requireGreen": ["FUNDING", "PROCUREMENT_PATH"] },
+    { "name": "Probable", "minStage": 6, "maxRed": 1, "notRed": ["FUNDING"] },
+    { "name": "Possible", "minStage": 3 },
+    { "name": "Early", "minStage": 1 }
+  ],
+  "awardWindowRequiresGreen": ["FUNDING", "PROCUREMENT_PATH"],
+  "scorecardStaleDays": 90,
+  "staleDealDays": 30,
+  "renewalWindowDays": 120,
+  "fiscalYearStartMonth": 10
+}
