@@ -19,7 +19,8 @@ qualification scorecard (no P-win %), sitting on top of Google Workspace. The fu
 
 ## Local setup
 
-Requires Node 22 and Postgres 16 (`docker compose up -d db` starts one).
+Requires Node 22.12 or newer (older versions fail with `ERR_REQUIRE_ESM` when the CSS is compiled) and
+Postgres 16 (`docker compose up -d db` starts one).
 
 ```bash
 cp .env.example .env          # then set AUTH_SECRET: openssl rand -base64 32
